@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <cstdio>
 
 int main(){
 	int start;
@@ -8,9 +9,9 @@ int main(){
 	int counter = 0;
 
 	memset(ary, 0, sizeof(int) * 1000001);
-	std::cin >> start;
-	std::cin >> end;
-
+	scanf("%d", &start);
+	scanf("%d", &end);
+	
 	ary[0] = 1;
 	ary[1] = 1;
 	while(counter <= end)
@@ -32,7 +33,7 @@ int main(){
 	while(start <= end)
 	{
 		if(ary[start] == 0)
-			std::cout << start << std::endl;
+			printf("%d\n", start);
 		start++;
 	}
 }
