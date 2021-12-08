@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <cstdio>
+#include <queue>
 
 int countDecimal(int start, int pre, int ary[250000]);
 
@@ -8,6 +9,7 @@ int main(){
 	int start;
 	int pre = -1;
 	int ary[250000];
+	std::queue<int> q;
 
 	memset(ary, 0, sizeof(int) * 250000);
 	while(true)
@@ -15,6 +17,13 @@ int main(){
 		scanf("%d", &start);
 		if(start == 0)
 			break;
+		q.push(start);
+	}
+	
+	while(!q.empty())
+	{
+		int start = q.front();
+		q.pop();
 		printf("%d\n", countDecimal(start, pre, ary));
 		pre = start;
 	}
