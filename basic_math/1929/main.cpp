@@ -9,6 +9,7 @@ int main(){
 	int counter = 0;
 
 	memset(ary, 0, sizeof(int) * 1000001);
+	
 	scanf("%d", &start);
 	scanf("%d", &end);
 	

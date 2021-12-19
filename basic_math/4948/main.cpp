@@ -16,10 +16,12 @@ int main(){
 	{
 		scanf("%d", &start);
 		if(start == 0)
+		{
 			break;
-		q.push(start);
+		}
+		printf("%d\n", countDecimal(start, pre, ary));
 	}
-	
+/*
 	while(!q.empty())
 	{
 		int start = q.front();
@@ -27,6 +29,8 @@ int main(){
 		printf("%d\n", countDecimal(start, pre, ary));
 		pre = start;
 	}
+*/
+	return 0;
 }
 
 int countDecimal(int start, int pre, int ary[250000]){
@@ -59,9 +63,11 @@ int countDecimal(int start, int pre, int ary[250000]){
 	while(start <= end)
 	{
 		if(ary[start] == 0)
+		{		
+			//printf("start is %d\n", start);
 			counter++;
+		}
 		start++;
 	}
-
 	return (counter);
 }
