@@ -7,7 +7,7 @@ int main(void){
     int xone, yone, xtwo, ytwo, radone, radtwo;
     int xpow, ypow, distance;
 
-    int radsum;
+    int radsum, raddif;
 
     std::cin >> counter;
 
@@ -15,31 +15,22 @@ int main(void){
     {
         distance = 0;
         std::cin >> xone >> yone >> radone >> xtwo >> ytwo >> radtwo;
-        xpow = xone - xtwo;
-        if(xpow < 0)
-            xpow *= -1;
-        ypow = yone - ytwo;
-        if(ypow < 0)
-            ypow *= -1;
-            
-        radsum = radone + radtwo;
-        distance = xpow * xpow + ypow * ypow;
+
+        radsum = (radone + radtwo) * (radone + radtwo);
+        raddif = (radone - radtwo) * (radone - radtwo);
+        distance = (xone - xtwo) * (xone - xtwo) +  (yone - ytwo) * (yone - ytwo);
         if(distance != 0)
         {
-            if(radsum * radsum == distance)
+            if(radsum == distance || raddif == distance)
                 std::cout << 1 << std::endl;
-            else if (radsum * radsum < distance)
-                std::cout << 0 << std::endl;
-            else if (radone > radtwo + distance)
-                std::cout << 0 << std::endl;
-            else if (radtwo > radone + distance)
-                std::cout << 0 << std::endl;
-            else
+            else if (raddif < distance && radsum > distance)
                 std::cout << 2 << std::endl;
+            else
+                std::cout << 0 << std::endl;
         }
         else
         {
-            if(radone == radtwo)
+            if(raddif == 0)
                 std::cout << -1 << std::endl;
             else
                 std::cout << 0 << std::endl;
