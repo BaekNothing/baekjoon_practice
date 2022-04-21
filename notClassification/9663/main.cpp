@@ -7,6 +7,6 @@ int main(void)
 
 	std::cin >> counter;
 	std::cout << counter;
-
+  
   return (0);
 }
