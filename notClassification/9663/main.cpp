@@ -1,61 +1,68 @@
 #include <iostream>
 #include <cstdio>
 
+int result = 0;
+int ary[15];
+int max;
+
 bool compUp(int src, int dest, int distance)
 {
-	std::cout << src << dest << distance << "\n";
-	if (dest - distance == src)
+	if (src - distance == dest)
 		return true;
 	return false;
 }
 
 bool compDown(int src, int dest, int distance)
 {
-	std::cout << src << dest << distance << "\n";
-	if (dest + distance == src)
+	if (src + distance == dest)
 		return true;
 	return false;
 }
 
-void printAry(int ary[16])
+void printAry()
 {
-	for (int i = 1; i < 16; i ++)
-		std::cout << ary[i];
-	std::cout << "\n";
+	// std::cout << "this is complete ary ";
+	// for(int i = 0; i < 15; i++)
+	// 	std::cout << ary[i];
+	// std::cout << std::endl;
 }
 
-int findQueen(int index, int pos, int ary[16], int max)
+bool compAry(int index){
+	printAry();
+	for (int i = 0; i < index; i++)
+		if (compDown(ary[index], ary[i], index - i) ||
+			compUp(ary[index], ary[i], index - i) ||
+			ary[index] == ary[i] )
+			{ //std::cout << "index is " << index <<"false\n"; 
+			  return false;}
+	//std::cout << "index is " << index <<"true\n";
+	return true;		
+}
+
+int findQueen(int index)
 {
-	int result = 1;
-	ary[index] = pos;
-
-	printAry(ary);
-
-	for (int i = 1; i < index; i++)
-		if (compUp(ary[index], ary[i], index - i) ||
-				compDown(ary[index], ary[i], index - i) ||
-			  ary[index] == ary[i])
-					return(0);
-	if(index < max)
-		result += findQueen(index + 1, 1, ary, max);
-	if(pos < max)
-		result += findQueen(index, pos + 1, ary, max);
 	if (index == max)
-		return (result);
+	{
+		printAry();
+		result++;
+		return(0);
+	}
+	for (int i = 0; i < max; i++)
+	{
+		ary[index] = i;
+		if (compAry(index))
+			findQueen(index + 1);
+	}
 	return (0);
 }
 
 int main(void)
 {
-
-	int ary[16];
-	for (int i = 0; i < 16; i++)
+	for (int i = 0; i < 15; i++)
 		ary[i] = 0;
-	int max = 0;
-	int result = 0;
 
-	std::cin >> max;
-	result = findQueen(1, 1, ary, max);
+	std::cin >> max; 
+	findQueen(0);
 	std::cout << result;
 
   return (0);
