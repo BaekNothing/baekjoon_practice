@@ -2,46 +2,72 @@
 #include <cstdio>
 
 using namespace std;
-// 산술평균 : N개의 수들의 합을 N으로 나눈 값
-// 중앙값 : N개의 수들을 증가하는 순서로 나열했을 경우 그 중앙에 위치하는 값
-// 최빈값 : N개의 수들 중 가장 많이 나타나는 값
-// 범위 : N개의 수들 중 최댓값과 최솟값의 차이
 int main(void)
 {
+
     int countAry[10042];
     int length;
     int temp;
     int counter;
- 
+    long long arithmeticMean = 0;
+    int max = -4000;
+    int min = 4000;
+
     cin >> length;
     counter = 0;
     while (counter < 10042)
     {
         countAry[counter] = 0;
-        counter++;        
+        counter++;
     }
 
     counter = 0;
     while (counter < length)
     {
         scanf("%d", &temp);
+        arithmeticMean += temp;
+        if(max < temp)
+          max = temp;
+        if(min > temp)
+          min = temp;
         temp += 4000;
-        //cin >> temp;
         countAry[temp]++;
         counter++;
     }
-    
-    counter = 0;
-    while (counter <= 10000)
+
+    int middleIndex = 0;
+    int middleValue = 0;
+    int middleFlag = 0;
+
+    int frequencyIndex = 0;
+    int frequencyValue = 0;
+
+    for(int i = 0; i < 10042; i++)
     {
-        temp = 0;
-        while (temp < countAry[counter])
-        {
-            printf("%d\n", counter - 4000);
-            //cout << counter << "\n";
-            temp++;
-        }
-        counter++;
+      if (middleFlag == 0)
+        middleValue += countAry[i];
+      if (middleFlag == 0 && middleValue > length / 2)
+      {
+        middleFlag = 1;
+        middleIndex = i;
+      }
+      if (frequencyValue < countAry[i])
+      {
+        frequencyValue = countAry[i];
+        frequencyIndex = i;
+      }
     }
+
+    for (int i = 0; i < 10042; i++)
+    {
+      if(frequencyValue == countAry[i] && frequencyIndex != i)
+      {
+        frequencyIndex = i;
+        break;
+      }
+    }
+
+    printf("%.01f\n%d\n%d\n%d", (float)arithmeticMean / (float)length, middleIndex - 4000, frequencyIndex - 4000, max - min);
+
     return (0);
 }
