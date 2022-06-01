@@ -14,8 +14,8 @@ import torch
 from transformers import GPT2LMHeadModel
 import os
 
-if(os.path.exists("kogpt2_pytorch_model.bin")):
-    model = GPT2LMHeadModel.from_pretrained("kogpt2_pytorch_model.bin")
+if(os.path.exists("kogpt2_model.bin")):
+    model = GPT2LMHeadModel.from_pretrained("kogpt2_model.bin")
 else:
     model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
 text = '나는 더 성장하고 싶어요. 천천히 생각해보자.'
@@ -44,6 +44,8 @@ import transformers
 from transformers import AutoModelWithLMHead, PreTrainedTokenizerFast
 from fastai.text.all import *
 import fastai
+
+
 import re
 
 print(torch.__version__)
