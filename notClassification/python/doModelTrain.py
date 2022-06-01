@@ -1,26 +1,6 @@
 # from https://wikidocs.net/157001 KoGPT2 챗봇 만들기
 
-# import torch
-# from transformers import GPT2LMHeadModel
-
-# from transformers import PreTrainedTokenizerFast
-# tokenizer = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2", bos_token='</s>', eos_token='</s>', unk_token='<unk>', pad_token='<pad>', mask_token='<mask>') 
-# tokenizer.tokenize("안녕하세요. 한국어 GPT-2 입니다.😤:)l^o")
-
-# model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
-
-# text = '근육이 커지기 위해서는'
-# input_ids = tokenizer.encode(text)
-# gen_ids = model.generate(torch.tensor([input_ids]),
-#                            max_length=128,
-#                            repetition_penalty=2.0,
-#                            pad_token_id=tokenizer.pad_token_id,
-#                            eos_token_id=tokenizer.eos_token_id,
-#                            bos_token_id=tokenizer.bos_token_id,
-#                            use_cache=True)
-# generated = tokenizer.decode(gen_ids[0,:].tolist())
-# print(generated)
-
+from regex import D
 import setModelData
 import numpy as np
 import pandas as pd
@@ -69,6 +49,14 @@ learning_rate = 3e-5
 criterion = torch.nn.CrossEntropyLoss(reduction="none")
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
+
+import datetime as dt
+
+now = dt.datetime.now()
+nowDate = now.strftime('%m%d_%H%M')
+# torch.save(model.state_dict(), 'models/' + str(nowDate) + '_dict.bin')
+# torch.save(model, 'models/' + str(nowDate) + '_model.bin')
+
 epoch = 10
 Sneg = -1e18
 
@@ -89,11 +77,10 @@ for epoch in range(epoch):
         optimizer.step()
 print ("end")
 
-import datetime as dt
+torch.save(model.state_dict(), 'models/' + str(nowDate) + '_dict.bin')
+torch.save(model, 'models/' + str(nowDate) + '_model.bin')
 
-torch.save(model.state_dict(), 'models/' + dt.datetime.now() + 'kogpt2_state_trained_dict.bin')
-torch.save(model, 'models/' + dt.datetime.now() + 'kogpt2_model_trained.bin')
-
+sent = 0 # 0=일상, 1=부정, 2=긍정
 with torch.no_grad():
     while 1:
         q = input("user > ").strip()
