@@ -80,7 +80,7 @@ print ("end")
 torch.save(model.state_dict(), 'models/' + str(nowDate) + '_dict.bin')
 torch.save(model, 'models/' + str(nowDate) + '_model.bin')
 
-sent = 0 # 0=일상, 1=부정, 2=긍정
+sent = "0" # 0=일상, 1=부정, 2=긍정
 with torch.no_grad():
     while 1:
         q = input("user > ").strip()
