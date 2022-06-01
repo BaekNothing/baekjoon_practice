@@ -1,5 +1,6 @@
-
+from numpy import empty
 from transformers import PreTrainedTokenizerFast
+
 tokenizer = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
   bos_token='</s>', eos_token='</s>', unk_token='<unk>',
   pad_token='<pad>', mask_token='<mask>')
@@ -9,14 +10,15 @@ import torch
 from transformers import GPT2LMHeadModel
 import os
 
-if(os.path.exists("kogpt2_model_trained.bin")):
-    model = torch.load("kogpt2_model_trained.bin")
+path = input("Enter the path of the model you want to test : ")
+if(os.path.exists(path)):
+    model = torch.load(path)
 else:
-    exit(print("there is no model"));
+    exit(print("there is no model"))
 
 text = " "
-while(text != "") :
-    text = input('텍스트를 입력하십시오\n')
+while(text != empty and text != "" and text != "exit" and text != "\n") :
+    text = input('텍스트를 입력하십시오 : \n')
     input_ids = tokenizer.encode(text, return_tensors='pt')
     gen_ids = model.generate(input_ids,
                             max_length=170,
