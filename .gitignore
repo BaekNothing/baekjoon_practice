@@ -53,3 +53,7 @@ dkms.conf
 *kogpt/
 *.bin
 *kogptDataset/
+data/
+*data.txt
+*data.csv
+*.pyc
