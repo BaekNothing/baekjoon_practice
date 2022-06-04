@@ -134,9 +134,9 @@ train_dataloader = DataLoader(train_set, batch_size=32, num_workers=0, shuffle=T
 
 # 데이터로더를 사용하여 테스트 데이터를 생성해 봅니다.
 print("start")
-for batch_idx, samples in enumerate(train_dataloader):
-    token_ids, mask, label = samples
-    print("token_ids ====> ", token_ids)
-    print("mask =====> ", mask)
-    print("label =====> ", label)
+# for batch_idx, samples in enumerate(train_dataloader):
+#     token_ids, mask, label = samples
+#     print("token_ids ====> ", token_ids)
+#     print("mask =====> ", mask)
+#     print("label =====> ", label)
 print("end")

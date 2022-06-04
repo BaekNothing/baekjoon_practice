@@ -5,7 +5,7 @@ url += "https://vision-oasis.tistory.com/7?category=900851"
 url += "https://github.com/ttop32/KoGPT2novel"
 
 from transformers import PreTrainedTokenizerFast
-tokenizer = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
+tokenizer = PreTrainedTokenizerFast.from_pretrained("./kogpt2-base-v2/config.json",
   bos_token='</s>', eos_token='</s>', unk_token='<unk>',
   pad_token='<pad>', mask_token='<mask>')
 print(tokenizer.tokenize("안녕하세요. 한국어 GPT-2 입니다.😤:)l^o"))
