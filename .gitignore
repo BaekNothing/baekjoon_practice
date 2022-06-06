@@ -54,6 +54,7 @@ dkms.conf
 *.bin
 *kogptDataset/
 data/
+cwals/
 *data.txt
 *data.csv
 *.pyc
