@@ -10,6 +10,10 @@ length = input()
 ary = ["" for i in range(int(length))]
 for i in range(int(length)):
     ary[i] = list(input())
-ary.sort(key=lambda x:(len(x), x))
+ary.sort(key=lambda x:(int(len(x)), x))
+prevStr = ""
 for i in range(int(length)):
-    print(convert(ary[i]))
+    converted = convert(ary[i])
+    if converted != prevStr :
+        print(convert(ary[i]))
+    prevStr = converted
