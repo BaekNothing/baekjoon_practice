@@ -1,37 +1,32 @@
 cellCount = input()
 
-loop = [4, 2, 3, 1]
-map = {}
-
-firstInput = input().split()
-index = 0
-breakIndex = 0
-while loop[index] != int(firstInput[0]) :
-    index += 1
-    if index == 4 :
-        index = 0
-prevInput = firstInput[1]
-
-map[int(firstInput[0])] = firstInput[1]
-negativeSpace = 0
-inputName = [0, 0]
-while True :
-    try :
-        inputName = input().split()
+def go(index, dir) :
+    if (dir == -1) :
+        index -= 1
+        if index < 0 :
+            index = 5
+        return index
+    elif (dir == 1) :
         index += 1
-        if int(index) == 4 :
+        if index > 5:
             index = 0
-        if (int(loop[int(index)]) != int(inputName[0])) and negativeSpace == 0:
-            negativeSpace = int(prevInput) * int(inputName[1])
-            breakIndex = index
-        prevInput = inputName[1]
-        map[int(inputName[0])] = inputName[1]
-    except :
-        break
+        return index
 
-if negativeSpace == 0 :
-    negativeSpace = int(firstInput[1]) * int(inputName[1])
-    breakIndex = index
+ary = [0 for i in range(6)]
+for i in range(6) :
+    inputName = input().split()
+    ary[i] = int(inputName[1])
 
-space = int(map[loop[int(breakIndex)]]) * int(map[loop[int((breakIndex + 1) if (breakIndex + 1) < 4 else 0)]]) - negativeSpace
-print (space * int(cellCount))
+maxNum = 0
+maxIndex = 0
+for i in range(6) :
+    if int(ary[i]) > maxNum :
+        maxNum = int(ary[i])
+        maxIndex = i
+
+dir = -1 if ary[go(maxIndex, -1)] > ary[go(maxIndex, 1)] else 1
+
+space = ary[maxIndex] * ary[go(maxIndex, dir)]
+negativeSpace = ary[go(go(maxIndex, -dir), -dir)] * ary[go(go(go(maxIndex, -dir), -dir), -dir)]
+
+print(int(space - negativeSpace) * int(cellCount))
