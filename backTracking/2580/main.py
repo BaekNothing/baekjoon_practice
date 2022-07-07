@@ -1,64 +1,23 @@
-import copy
-
-_ary = [[] for i in range(9)]
-original = [[] for i in range(9)]
+h_Bit = 0
+v_Bit = 0
+s_Bit = 0
 
 length = 9
-
-def setMaps(ary, y, x, verticalMap, horizontalMap, squareMap) :
-    verticalMap.clear()
-    horizontalMap.clear()
-    squareMap.clear()
-    for i in range(y) :
-        verticalMap[int(ary[i][x])] = 1
-    for i in range(x) :
-        horizontalMap[int(ary[y][i])] = 1
-    for i in range(3) :
-        for j in range(3) :
-            squareMap[int(ary[y - y % 3 + i][x - x % 3 + j])] = 1
-
-def checkMaps(ary, y, x, verticalMap, horizontalMap, squareMap) :
-    if int(ary[y][x]) in verticalMap :
-        return False
-    if int(ary[y][x]) in horizontalMap :
-        return False
-    if int(ary[y][x]) in squareMap :
-        return False
-    return True
-
-def recursiveCellFind(ary, y, x) : 
-    if y >= length :
-        for i in range(length) :
-            print(*ary[i])
-        print("\n")
-        exit()
-    
-    verticalMap = {}
-    horizontalMap = {}
-    squareMap = {}
-
-    ary[y][x] = original[y][x]
-    setMaps(ary, y, x, verticalMap, horizontalMap, squareMap)
-    
-    if int(ary[y][x]) == 0 :
-        for i in range(1, 10) :
-            ary[y][x] = int(i)
-            if checkMaps(ary, y, x, verticalMap, horizontalMap, squareMap) :
-                if int(x) < 8:
-                    recursiveCellFind(ary, y, x + 1)
-                else :
-                    recursiveCellFind(ary, y + 1, 0)
-            else :
-                ary[y][x] = original[y][x]
-    else :
-        if checkMaps(ary, y, x, verticalMap, horizontalMap, squareMap) :
-            if int(x) < 8 :
-                recursiveCellFind(ary, y, x + 1)
-            else :
-                recursiveCellFind(ary, y + 1, 0)
+ary = [[] for i in range(length)]
 
 for i in range(length) :
-    _ary[i] = input().split()
-original = copy.deepcopy(_ary)
+    ary[i] = list(map(int, input().split()))
 
-recursiveCellFind(_ary, 0, 0)
+def setBit(h_Bit, v_Bit, s_Bit, ary, x, y) :
+    for i in range(y) :
+        h_Bit = h_Bit | ary[i][x]
+    for i in range(x) :
+        v_Bit = v_Bit | ary[y][i]
+    for i in range(3) :
+        for k in range(3) :
+            s_Bit = s_Bit | ary[x - x % 3 + i][y - y % 3 + k]
+    print(bin(h_Bit), bin(v_Bit), bin(s_Bit))
+
+setBit(h_Bit, v_Bit, s_Bit, ary, 8, 8)
+for i in range(length) :
+    print(ary[i])
