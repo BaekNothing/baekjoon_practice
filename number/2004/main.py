@@ -9,6 +9,15 @@ def countFive(inputNum) :
         result += inputNum // base
         base *= 5
     return result
-    
-print(countFive(n) - (countFive(n - k) + countFive(k)))
-#print(int((n//5) - ((n - k)//5 + (k)//5)))
+
+def countTwo(inputNum) : 
+    result = 0
+    base = 2
+    while inputNum >= base :
+        result += inputNum // base
+        base *= 2
+    return result
+
+five = countFive(n) - (countFive(n - k) + countFive(k))
+two = countTwo(n) - (countTwo(n - k) + countTwo(k))
+print(five if five <= two else two)

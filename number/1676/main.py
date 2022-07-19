@@ -1,6 +1,3 @@
-from regex import R
-
-
 inputNum = int(input())
 
 result = 0

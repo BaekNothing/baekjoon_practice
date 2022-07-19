@@ -1,27 +1,23 @@
 import sys
-
-def readline():
-    return list(map(int, sys.stdin.readline().rstrip().split(' ')))
-
-def recursivelyFindDiffMin(Avalue, Bvalue, index, pos) :
-    global diff
-    if index >= numb_len :
-        result = abs(Avalue - Bvalue)
-        if result < diff :
-            diff = result
-        return
-
-    for i in range(numb_len) :
-        x = i
-        y = numb_len - i - 1
-        Avalue += numb_ary[x][y] + numb_ary[y][x]
-        
-
+from itertools import combinations
 
 numb_len = int(input())
 numb_ary = [[] for i in range(numb_len)]
 for i in range(numb_len) :
-    numb_ary[i] = readline()
-
+    numb_ary[i] = list(map(int, sys.stdin.readline().rstrip().split(' ')))
 diff = sys.maxsize
 
+total = 0
+for i in range(numb_len) :
+    for k in range(numb_len) :
+        total += numb_ary[i][k]
+
+combAry = combinations(range(numb_len), numb_len // 2)
+for ary in combAry :
+    arySum = 0
+    for num in ary :
+        for i in range(numb_len) :
+            arySum += numb_ary[num][i]
+            arySum += numb_ary[i][num]
+    diff = min(diff, abs(total - arySum))
+print(diff)
